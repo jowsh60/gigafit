@@ -16,12 +16,16 @@ export default function Login() {
     const navigate = useNavigate()
 
     useEffect(()=>{ //Skip login if login cookies are set
-        if(cookies.login != undefined && token !== 'undefined'){
+        if(cookies.login != undefined && cookies.login !== 'undefined' && token !== 'undefined'){
             setToken(cookies.login)
             navigate('/')
         }
         if(cookies.dark != undefined){
             setCookie('dark', cookies.dark, { path: '/', maxAge:604800 })
+        }
+        if(window.location.href.includes('demo')){
+            setUsername('demo')
+            setPassword('nerd')
         }
     }, [])
 
@@ -36,6 +40,7 @@ export default function Login() {
                 setError(err.message)
             })
     }
+
 
     return (
         <div className={cookies.dark ? 'dark' : ''}>

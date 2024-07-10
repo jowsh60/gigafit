@@ -70,7 +70,9 @@ async function readDayRoute(req, res) {
     }
     try {
         const token = req.headers.authorization.split(' ')[1]
-        var id = jwt.verify(token, process.env.SECRET).userId
+        const x = jwt.verify(token, process.env.SECRET)
+        const id = x.userId
+        const username = x.username
         const result = await client.query("SELECT * FROM daylogger WHERE date = $1 AND user_id = $2", [date, id]);
         if (result.rows.length) {
             var rows = result.rows[0]
@@ -86,6 +88,8 @@ async function readDayRoute(req, res) {
                 const phase = await client.query("SELECT weight_phase FROM preferences WHERE user_id = $1", [id]);
                 rows.weight_phase = phase.rows[0].weight_phase
             }
+            if(username==='demo') delete rows["perceived_happiness"] //don't need people seeing that!
+            delete rows["custom"] //Add back later
             delete rows["user_id"]
             delete rows["date"]
             res.send(rows)
@@ -110,12 +114,12 @@ async function addDayRoute(req, res) {
         var id = jwt.verify(token, process.env.SECRET).userId
         const data = [
             id, date,
-            isNaN(day.hours_slept) ? null : day.hours_slept % 25,
-            isNaN(day.sleep_quality) ? null : day.sleep_quality % 11,
-            isNaN(day.morning_weight) ? null : day.morning_weight,
-            isNaN(day.night_weight) ? null : day.night_weight,
-            isNaN(day.workout_quality) ? null : day.workout_quality % 11,
-            isNaN(day.perceived_happiness) ? null : day.perceived_happiness % 11,
+            day.hours_slept == null || isNaN(day.hours_slept) ? null : day.hours_slept % 25,
+            day.sleep_quality == null || isNaN(day.sleep_quality) ? null : day.sleep_quality % 11,
+            day.morning_weight == null || isNaN(day.morning_weight) ? null : day.morning_weight % 1000,
+            day.night_weight == null || isNaN(day.night_weight) ? null : day.night_weight % 1000,
+            day.workout_quality == null || isNaN(day.workout_quality) ? null : day.workout_quality % 11,
+            day.perceived_happiness == null || isNaN(day.perceived_happiness) ? null : day.perceived_happiness % 11,
             day.calorie_goal !== null && day.calorie_goal !== '' ? Math.abs(Number(day.calorie_goal)) % 32768 : null,
             day.weight_phase !== null && day.weight_phase !== '' ? Number(day.weight_phase) % 2 : null,
         ]

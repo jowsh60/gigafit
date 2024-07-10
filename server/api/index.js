@@ -6,8 +6,8 @@ const app = express();
 
 app.use(express.json())
 
-import {ALLOWED} from './config'
-const allowedOrigins = ALLOWED;
+const config = require('./config')
+const allowedOrigins = config.ALLOWED;
 
 app.use(cors({
   origin: function(origin, callback) {

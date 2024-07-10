@@ -30,7 +30,7 @@ export default function AddMeal(){
         const temp = foods.map((row, index) => {
           if (index == rowIndex) {
             if (propName !== "name"){
-                return { ...row, [propName]: parseInt(e.target.value) };
+                return { ...row, [propName]: parseFloat(e.target.value) };
             } 
             return { ...row, [propName]: e.target.value };
           }
