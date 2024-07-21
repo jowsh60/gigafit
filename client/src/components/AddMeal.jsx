@@ -109,7 +109,8 @@ export default function AddMeal(){
                             index={index} 
                             handleFoodChange={handleFoodChange}
                             handleAutofill={handleAutofill}
-                            removeRow={removeRow}></Food>
+                            removeRow={removeRow}
+                            token={token}></Food>
                         ))
                     )}
                     <div className="grid grid-cols-2 lg:grid-cols-7">
@@ -119,11 +120,12 @@ export default function AddMeal(){
                         ))}
                     </div>
             </div>
-            <span className="relative inline-flex mt-3 text-white">
+            <span className="relative inline-flex my-3 text-white">
                 <button onClick={add} className="p-0.5 px-1 bg-sky-400/75 border-sky-400 border-4 rounded-md hover:bg-cyan-300/75 font-medium mr-2">Add Item</button>
                 <button onClick={save} className="p-0.5 px-1 bg-sky-600/75 border-sky-600 border-4 rounded-md hover:bg-cyan-500/75 font-medium">Save</button>
                 {!saved && <Ping/>}
             </span>
+            <div className="text-sm">Nutrient Search Powered by <a href="https://www.nutritionix.com/">Nutritionix</a></div>
         </div>
         </>
     )

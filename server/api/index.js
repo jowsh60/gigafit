@@ -25,24 +25,6 @@ const account = require("./routes/account")
 const graphing = require("./routes/graphing")
 const external = require("./routes/external")
 
-app.use('/token', proxy('oauth.fatsecret.com', {
-  proxyReqPathResolver: function(req) {
-    return '/connect/token';
-  },
-  proxyReqOptDecorator: function(proxyReqOpts, srcReq) {
-    // Add headers to proxy request
-    proxyReqOpts.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    proxyReqOpts.headers['Authorization'] = 'Basic ' + Buffer.from('276b633c771249b5ac58c9667edf46df:61d4897fdac94c35940e73d3ba1406c2').toString('base64');
-    return proxyReqOpts;
-  },
-  proxyReqBodyDecorator: function(bodyContent, srcReq) {
-    // Modify body content or add new data
-    bodyContent.grant_type = 'client_credentials';
-    bodyContent.scope = 'basic';
-    return bodyContent;
-  }
-}));
-
 const isLoggedIn = require("./middleware/isLoggedIn")
 const notDemo = require("./middleware/notDemo")
 
@@ -67,6 +49,8 @@ app.post('/food', [isLoggedIn,notDemo], logging.addFoodRoute)
 app.get('/day', isLoggedIn, logging.readDayRoute)
 app.post('/day', [isLoggedIn,notDemo], logging.addDayRoute)
 
+app.post('/nutrition', [isLoggedIn,notDemo], external.nutrition )
+app.get('/nutrition', [isLoggedIn,notDemo], external.nutritionSearch )
 
 app.listen(5002, () => console.log("connected on 3000"));
    

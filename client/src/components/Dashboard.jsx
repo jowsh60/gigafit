@@ -16,13 +16,12 @@ export default function Dashboard(){
                 <div className="col-span-1 border-2 border-stone-400 dark:border-gray-100 rounded-xl">
                 Current to do list:
                 <ol>
-                    <li><span className="line-through">0. Login persistence</span> and Bug fixes</li>
-                    <li className="line-through">1. Basic data parsing {'->'} Simple graphs and charts {'- By July 2024'}</li>
-                    <li className="line-through">2. Mobile design / Toggle Light mode {'- By August 2024'}</li>
-                    <li>3. Workout tracker {'- December 2024'}</li>
-                    <li>4. Integration with other fitness apps (Hevy/Strong, Apple Health) {'- Spring 2025'}</li>
-                    <li>5. Advanced graphing settings {'- Spring 2025'}</li>
-                    <li>6. Social feature {'- Summer 2025'}</li>
+                    <li>1. Campaigns: Personalized Week Long Weight Missions {'- October 2024'}</li>
+                    <li>2. Workout tracker {'- December 2024'}</li>
+                    <li>4. Advanced graphing settings {'- Spring 2025'}</li>
+                    <li>5. Social feature {'- Summer 2025'}</li>
+                    <li>3. Integration with other fitness apps (Hevy/Strong, Apple Health) {'- Spring 2025'}</li>
+                    <li>6. Standalone iOS App {'- 2026'} </li>
                 </ol>
                 </div>
             </div>

@@ -26,7 +26,6 @@ export default function DayLogger() {
 
     const handleChange = (e, inputName) => {
         const temp = { ...day, [inputName]: (e.target.value === '' || e.target.value == null || isNaN(e.target.value) ? null : Number(e.target.value)) }
-        console.log(temp)
         setDay(temp);
         setSaved(JSON.stringify(temp) === JSON.stringify(tempDay))
     };

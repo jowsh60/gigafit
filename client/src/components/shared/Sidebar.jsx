@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import classNames from 'classnames'
-import { IoCalendarOutline, IoLogOutOutline } from "react-icons/io5";
+import { IoCalendarOutline, IoLogOutOutline, IoLogoGithub } from "react-icons/io5";
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { DASHBOARD_SIDEBAR_LINKS,DASHBOARD_SIDEBAR_BOTTOM_LINKS } from '../../lib/consts/navigation'
 import { TokenContext } from '../../App'
@@ -19,6 +19,10 @@ export default function SideBar(){
         navigate('/login')
     }
 
+    const git = () => {
+        window.location.href="https://github.com/jowsh60/gigafit"
+    }
+    
     return(
         <div className="hidden md:flex w-60 p-5 pt-2 flex flex-col border-r border-stone-500 dark:border-slate-400 text-stone-600 dark:text-white">
             <div className="flex items-center gap-2 px-1 py-3 text-xl" >
@@ -31,11 +35,12 @@ export default function SideBar(){
                 ))}
             </div>
             <div className="flex flex-col gap-0.5 pt-2 border-t border-neutral-700">
-                {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map(item => (
-                    <SidebarLink key={item.key} item={item}/>
-                ))}
+                <div onClick={git}className={"cursor-pointer text-stone-500 dark:text-slate-400 " + linkClasses}>
+                    <span className="text-2xl"><IoLogoGithub/></span>
+                    GitHub
+                </div>
                 <div onClick={logout} className={classNames('text-red-400 cursor-pointer', linkClasses)}>
-                    <IoLogOutOutline/><span className="text-xl"></span>
+                    <span className="text-2xl"><IoLogOutOutline/></span>
                     Logout
                 </div>
             </div>
@@ -50,7 +55,7 @@ function SidebarLink({item}){
 
     return (
         <Link to={item.path} className={classNames(pathname==item.path ? 'bg-stone-300 text-stone-600 dark:bg-neutral-700 dark:text-white' : 'text-stone-500 dark:text-slate-400', linkClasses)}>
-            {item.icon}<span className="text-xl"></span>
+            <span className="text-xl">{item.icon}</span>
             {item.label}
         </Link>
     )

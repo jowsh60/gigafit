@@ -1,19 +1,28 @@
 import {API_URL,fsID,fsSecret} from './config'
 
-async function getToken(){
-    return fetch(`${API_URL}/token`, {
-        method : 'GET',
+export async function nutritionRequest( token, food, branded ){
+    return fetch(`${API_URL}/nutrition`, {
+        method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        },
+        body: JSON.stringify({
+            food:food,
+            branded:branded
+        })
     })
     .then(response => response.json())
 }
 
-export async function nutritionRequest( food ){
-    return await getToken()
-    // return fetch(`https://api.api-ninjas.com/v1/nutrition?query=${food}`, {
-    //     method: "GET",
-    //     headers: {
-    //         'X-Api-Key': '',
-    //     }
-    // })
-    // .then(response => response.json())
+export async function nutritionSearchRequest( token, food ){
+    //Proxy call to the api to hopefully go around nutritionix's user limit
+    return fetch(`${API_URL}/nutrition?query=${food}`, {
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": 'application/json'
+        },
+    })
+    .then(response => response.json())
 }

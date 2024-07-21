@@ -81,6 +81,7 @@ export default function Graph() {
                 curve: 'straight',
             },
             xaxis: {
+                type:'datetime',
                 categories: result?.date,
                 labels: {
                     style: {
@@ -162,7 +163,8 @@ export default function Graph() {
                 }
             },
             tooltip: {
-                enabled: false,
+                enabled: true,
+                theme:cookies.dark ? 'dark' : 'light'
             }
         }
     }
